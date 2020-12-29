@@ -74,10 +74,10 @@
                 "before": true
             }
         ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
+        // "linebreak-style": [
+        //     "error",
+        //     "windows"
+        // ],
         "lines-between-class-members": "error",
         "new-parens": "error",
         "newline-per-chained-call": [
