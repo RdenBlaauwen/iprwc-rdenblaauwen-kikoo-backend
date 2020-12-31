@@ -11,6 +11,7 @@ module.exports = (sequelize , DataTypes) => {
      */
 		static associate(models) { // associate(models) is possible too
 			this.hasOne(models.Customer);
+			this.hasMany(models.Order);
 		}
 	}
 	User.init({
