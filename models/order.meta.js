@@ -13,7 +13,7 @@ const attributes = {
 	orderer: {
 		type      : DataTypes.UUID ,
 		references: {
-			model: 'Users' ,
+			model: 'users' ,
 			key  : 'id'
 		}
 	} ,

@@ -1,33 +1,39 @@
 'use strict';
+
+const tableName = 'order_product';
+
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('OrderProducts', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      order: {
-        type: Sequelize.UUID
-      },
-      product: {
-        type: Sequelize.UUID
-      },
-      amount: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('OrderProducts');
-  }
+	up: async(queryInterface , Sequelize) => {
+		await queryInterface.createTable(
+			tableName , 
+			{
+				order: {
+					type      : Sequelize.UUID ,
+					allowNull : false ,
+					primaryKey: true ,
+					references: {
+						model: 'users' ,
+						key  : 'id'
+					}
+				} ,
+				product: {
+					type      : Sequelize.UUID ,
+					allowNull : false ,
+					primaryKey: true ,
+					references: {
+						model: 'product' ,
+						key  : 'id'
+					}
+				} ,
+				amount: {
+					type        : Sequelize.INTEGER ,
+					allowNull   : false ,
+					defaultValue: 0
+				}
+			}
+		);
+	} ,
+	down: async(queryInterface) => {
+		await queryInterface.dropTable(tableName);
+	}
 };
