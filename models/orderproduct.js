@@ -1,39 +1,9 @@
 'use strict';
 const{
 	Model ,
-	DataTypes
 } = require('sequelize');
 
-const orderMeta = require('./order.meta');
-const productMeta = require('./product.meta');
-
-const attributes = {
-	order: {
-		type      : DataTypes.UUID ,
-		allowNull : false ,
-		primaryKey: true ,
-		references: {
-			model: orderMeta.tableName ,
-			key  : 'id'
-		}
-	} ,
-	product: {
-		type      : DataTypes.UUID ,
-		allowNull : false ,
-		primaryKey: true ,
-		references: {
-			model: productMeta.tableName ,
-			key  : 'id'
-		}
-	} ,
-	amount: {
-		type        : DataTypes.INTEGER ,
-		allowNull   : false ,
-		defaultValue: 0
-	}
-};
-
-module.exports = (sequelize) => {
+module.exports = (sequelize , DataTypes) => {
 	class OrderProduct extends Model {
 		/**
      * Helper method for defining associations.
@@ -46,7 +16,31 @@ module.exports = (sequelize) => {
 		}
 	}
 	OrderProduct.init(
-		attributes , 
+		{
+			order: {
+				type      : DataTypes.UUID ,
+				allowNull : false ,
+				primaryKey: true ,
+				references: {
+					model: 'order' ,
+					key  : 'id'
+				}
+			} ,
+			product: {
+				type      : DataTypes.UUID ,
+				allowNull : false ,
+				primaryKey: true ,
+				references: {
+					model: 'product' ,
+					key  : 'id'
+				}
+			} ,
+			amount: {
+				type        : DataTypes.INTEGER ,
+				allowNull   : false ,
+				defaultValue: 0
+			} 
+		} ,
 		{
 			sequelize ,
 			modelName: 'OrderProduct' ,

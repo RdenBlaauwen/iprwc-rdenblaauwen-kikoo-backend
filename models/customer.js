@@ -17,9 +17,12 @@ module.exports = (sequelize , DataTypes) => {
 	Customer.init({
 		id: {
 			type      : DataTypes.UUID ,
-			primaryKey: true ,
 			allowNull : false ,
-			unique    : true
+			primaryKey: true ,
+			unique    : true ,
+			validate  : {
+				notNull: true
+			}
 		} ,
 		firstName: DataTypes.STRING ,
 		lastName : DataTypes.STRING ,

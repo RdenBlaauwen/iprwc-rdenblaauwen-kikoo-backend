@@ -1,4 +1,7 @@
 
+# Database config
+- set "Default `uuid_generate_v4()`" manually in postgres PK UUID fields whenever a new table is created.
+  - Consider automating this later on. It's kinda ugly.
 # To consider
 ## Code
 - figure a way to set `process.env` to configure devmode, production, etc

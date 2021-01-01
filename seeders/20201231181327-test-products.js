@@ -1,4 +1,6 @@
 'use strict';
+const{Product} = require('../models/index');
+const{v4} = require('uuid');
 
 const tableName = 'product';
 const records = [
@@ -41,9 +43,14 @@ const records = [
 
 module.exports = {
 	up: async(queryInterface) => {
-		queryInterface.bulkInsert(
+		const instances = records.map( (record) => {
+			record.id = v4();
+			return Product.build(record).get();
+		});
+		console.log('seeder products' , instances);
+		return queryInterface.bulkInsert(
 			tableName ,
-			records
+			instances
 		);
 	} ,
 

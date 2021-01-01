@@ -29,12 +29,12 @@ module.exports = {
 				createdAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.NOW
+					defaultValue: Sequelize.fn('NOW')
 				} ,
 				updatedAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.NOW // is this even valid in 'updatedAt'? Don't know if postgres even supports this
+					defaultValue: Sequelize.fn('NOW')// is this even valid in 'updatedAt'? Don't know if postgres even supports this
 				}
 			}
 		);

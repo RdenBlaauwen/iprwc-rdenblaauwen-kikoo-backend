@@ -9,8 +9,8 @@ module.exports = {
 			{
 				id: {
 					type         : Sequelize.UUID ,
-					unique       : true ,
 					defaultValue : Sequelize.UUIDV4 ,
+					unique       : true ,
 					allowNull    : false ,
 					primaryKey   : true ,
 					autoIncrement: false
@@ -26,12 +26,14 @@ module.exports = {
 					defaultValue: false
 				} ,
 				createdAt: {
-					allowNull: false ,
-					type     : Sequelize.DATE
+					allowNull   : false ,
+					type        : Sequelize.DATE ,
+					defaultValue: Sequelize.fn('NOW')
 				} ,
 				updatedAt: {
-					allowNull: false ,
-					type     : Sequelize.DATE
+					allowNull   : false ,
+					type        : Sequelize.DATE ,
+					defaultValue: Sequelize.fn('NOW')
 				}
 			}
 		);

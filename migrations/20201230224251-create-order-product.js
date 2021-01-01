@@ -7,7 +7,7 @@ module.exports = {
 		await queryInterface.createTable(
 			tableName , 
 			{
-				order: {
+				'order_id': {
 					type      : Sequelize.UUID ,
 					allowNull : false ,
 					primaryKey: true ,
@@ -16,7 +16,7 @@ module.exports = {
 						key  : 'id'
 					}
 				} ,
-				product: {
+				'product_id': {
 					type      : Sequelize.UUID ,
 					allowNull : false ,
 					primaryKey: true ,

@@ -8,11 +8,10 @@ module.exports = {
 			tableName ,
 			{
 				id: {
-					type        : Sequelize.UUID ,
-					primaryKey  : true ,
-					defaultValue: Sequelize.UUIDV4 ,
-					allowNull   : false ,
-					unique      : true
+					type      : Sequelize.UUID ,
+					primaryKey: true ,
+					allowNull : false ,
+					unique    : true
 				} ,
 				firstName: Sequelize.STRING ,
 				lastName : Sequelize.STRING ,
@@ -53,12 +52,14 @@ module.exports = {
 					onDelete: 'SET NULL'
 				} ,
 				createdAt: {
-					allowNull: false ,
-					type     : Sequelize.DATE
+					allowNull   : false ,
+					type        : Sequelize.DATE ,
+					defaultValue: Sequelize.fn('NOW')
 				} ,
 				updatedAt: {
-					allowNull: false ,
-					type     : Sequelize.DATE
+					allowNull   : false ,
+					type        : Sequelize.DATE ,
+					defaultValue: Sequelize.fn('NOW')
 				}
 			}
 		);

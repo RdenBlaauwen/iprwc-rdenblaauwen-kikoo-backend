@@ -2,25 +2,40 @@
 const{
 	Model
 } = require('sequelize');
-const{modelName , attributes , tableName} = require('./product.meta');
 
-module.exports = (sequelize) => {
+module.exports = (sequelize , DataTypes) => {
 	class Product extends Model {
 		/**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+	 * Helper method for defining associations.
+	 * This method is not a part of Sequelize lifecycle.
+	 * The `models/index` file will call this method automatically.
+	 */
 		static associate(models) {
 			this.hasMany(models.Order);
 		}
 	}
 	Product.init(
-		attributes ,
+		{
+			id: {
+				type      : DataTypes.UUID ,
+				allowNull : false ,
+				primaryKey: true ,
+				unique    : true 
+			} ,
+			name: {
+				type     : DataTypes.STRING ,
+				unique   : true ,
+				allowNull: false
+			} ,
+			description: DataTypes.TEXT ,
+			imageUri   : DataTypes.TEXT ,
+			stock      : DataTypes.INTEGER ,
+			price      : DataTypes.FLOAT
+		} ,
 		{
 			sequelize ,
-			modelName ,
-			tableName
+			modelName: 'Product' ,
+			tableName: 'product'
 		}
 	);
 	return Product;

@@ -22,7 +22,17 @@ module.exports = {
 				description: Sequelize.TEXT ,
 				imageUri   : Sequelize.TEXT ,
 				stock      : Sequelize.INTEGER ,
-				price      : Sequelize.FLOAT
+				price      : Sequelize.FLOAT ,
+				createdAt  : {
+					allowNull   : false ,
+					type        : Sequelize.DATE ,
+					defaultValue: Sequelize.fn('NOW')
+				} ,
+				updatedAt: {
+					allowNull   : false ,
+					type        : Sequelize.DATE ,
+					defaultValue: Sequelize.fn('NOW')
+				}
 			}
 		);
 	} ,
