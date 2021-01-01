@@ -18,10 +18,12 @@ module.exports = (sequelize , DataTypes) => {
 		id      : DataTypes.UUID ,
 		password: DataTypes.STRING ,
 		username: DataTypes.STRING ,
-		isAdmin : DataTypes.BOOLEAN
+		isAdmin : DataTypes.BOOLEAN ,
+		Customer: DataTypes.UUID
 	} , {
 		sequelize ,
 		modelName: 'User' ,
+		tableName: 'users'
 	});
 	return User;
 };

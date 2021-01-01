@@ -28,7 +28,7 @@ module.exports = {
 				amount: {
 					type        : Sequelize.INTEGER ,
 					allowNull   : false ,
-					defaultValue: 0
+					defaultValue: 0 // TODO: correct this to 1 in a later migration or smth
 				}
 			}
 		);

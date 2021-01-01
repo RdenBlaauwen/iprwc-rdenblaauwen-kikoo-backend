@@ -2,7 +2,7 @@
 const{
 	Model
 } = require('sequelize');
-const{modelName , attributes} = require('./order.meta');
+const{modelName , attributes , tableName} = require('./order.meta');
 module.exports = (sequelize) => {
 	class Order extends Model {
 		/**
@@ -20,6 +20,7 @@ module.exports = (sequelize) => {
 		, {
 			sequelize ,
 			modelName ,
+			tableName
 		}
 	);
 	return Order;

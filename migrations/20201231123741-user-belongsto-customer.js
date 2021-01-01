@@ -1,13 +1,13 @@
 'use strict';
 
 const tableName = 'users';
-const customerTableName = 'customer';
+const customerColumnName = 'customer';
 
 module.exports = {
 	up: async(queryInterface , Sequelize) => {
 		queryInterface.addColumn(
 			tableName ,
-			customerTableName ,
+			customerColumnName ,
 			{
 				type      : Sequelize.UUID ,
 				unique    : true ,
@@ -24,7 +24,7 @@ module.exports = {
 	down: async(queryInterface) => {
 		queryInterface.removeColumn(
 			tableName ,
-			customerTableName
+			customerColumnName
 		);
 	}
 };
