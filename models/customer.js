@@ -11,7 +11,8 @@ module.exports = (sequelize , DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) {
-			this.hasOne(models.User);
+			this.belongsTo(models.User);
+			this.hasMany(models.Order);
 		}
 	}
 	Customer.init({
@@ -24,9 +25,15 @@ module.exports = (sequelize , DataTypes) => {
 				notNull: true
 			}
 		} ,
-		firstName: DataTypes.STRING ,
-		lastName : DataTypes.STRING ,
-		email    : {
+		firstName: {
+			type : DataTypes.STRING ,
+			field: 'first_name'
+		} ,
+		lastName: {
+			type : DataTypes.STRING ,
+			field: 'last_name'
+		} ,
+		email: {
 			type     : DataTypes.STRING ,
 			unique   : true ,
 			allowNull: false
@@ -34,7 +41,8 @@ module.exports = (sequelize , DataTypes) => {
 		phoneNumber: {
 			type     : DataTypes.STRING ,
 			unique   : true ,
-			allowNull: false
+			allowNull: false ,
+			field    : 'phone_number'
 		} ,
 		country: DataTypes.STRING ,
 		city   : {
@@ -47,11 +55,33 @@ module.exports = (sequelize , DataTypes) => {
 		} ,
 		houseNumber: {
 			type     : DataTypes.SMALLINT ,
-			allowNull: false
+			allowNull: false ,
+			field    : 'house_number'
 		} ,
 		postalCode: {
 			type     : DataTypes.STRING ,
-			allowNull: false
+			allowNull: false ,
+			field    : 'postal_code'
+		} ,
+		user: {
+			type      : DataTypes.UUID ,
+			field     : 'UserId' ,
+			references: {
+				model: 'users' ,
+				key  : 'id'
+			} ,
+			onUpdate: 'CASCADE' ,
+			onDelete: 'SET NULL'
+		} ,
+		createdAt: {
+			allowNull: false ,
+			type     : DataTypes.DATE ,
+			field    : 'created_at'
+		} ,
+		updatedAt: {
+			allowNull: false ,
+			type     : DataTypes.DATE ,
+			field    : 'updated_at'
 		}
 	} , {
 		sequelize ,

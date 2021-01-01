@@ -1,7 +1,6 @@
 'use strict';
 
 const{Model} = require('sequelize');
-const{v4} = require('uuid');
 
 module.exports = (sequelize , DataTypes) => {
 	class User extends Model {
@@ -11,8 +10,7 @@ module.exports = (sequelize , DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) { // associate(models) is possible too
-			// this.hasOne(models.Customer);
-			this.hasMany(models.Order);
+			this.belongsTo(models.Customer);
 		}
 	}
 	User.init({
@@ -22,17 +20,26 @@ module.exports = (sequelize , DataTypes) => {
 			primaryKey: true ,
 			unique    : true ,
 		} ,
-		password : DataTypes.STRING ,
-		username : DataTypes.STRING ,
-		isAdmin  : DataTypes.BOOLEAN ,
-		Customer : DataTypes.UUID ,
+		password: DataTypes.STRING ,
+		username: DataTypes.STRING ,
+		isAdmin : {
+			type        : DataTypes.BOOLEAN ,
+			defaultValue: false ,
+			field       : 'is_admin'
+		} ,
+		customer: {
+			type : DataTypes.UUID ,
+			field: 'CustomerId'
+		} ,
 		createdAt: {
 			allowNull: false ,
-			type     : DataTypes.DATE
+			type     : DataTypes.DATE ,
+			field    : 'created_at'
 		} ,
 		updatedAt: {
 			allowNull: false ,
-			type     : DataTypes.DATE
+			type     : DataTypes.DATE ,
+			field    : 'updated_at'
 		}
 	} , {
 		sequelize ,

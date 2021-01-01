@@ -17,7 +17,7 @@ module.exports = {
 				orderer: {
 					type      : Sequelize.UUID ,
 					references: {
-						model: 'users' ,
+						model: 'customer' ,
 						key  : 'id'
 					}
 				} ,
@@ -29,12 +29,14 @@ module.exports = {
 				createdAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.fn('NOW')
+					defaultValue: Sequelize.fn('NOW') ,
+					field       : 'created_at'
 				} ,
 				updatedAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.fn('NOW')// is this even valid in 'updatedAt'? Don't know if postgres even supports this
+					defaultValue: Sequelize.fn('NOW') , // is this even valid in 'updatedAt'? Don't know if postgres even supports this
+					field       : 'updated_at'
 				}
 			}
 		);

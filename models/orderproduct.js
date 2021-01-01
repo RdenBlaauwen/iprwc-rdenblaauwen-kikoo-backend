@@ -21,6 +21,7 @@ module.exports = (sequelize , DataTypes) => {
 				type      : DataTypes.UUID ,
 				allowNull : false ,
 				primaryKey: true ,
+				field     : 'OrderId' ,
 				references: {
 					model: 'order' ,
 					key  : 'id'
@@ -30,6 +31,7 @@ module.exports = (sequelize , DataTypes) => {
 				type      : DataTypes.UUID ,
 				allowNull : false ,
 				primaryKey: true ,
+				field     : 'ProductId' ,
 				references: {
 					model: 'product' ,
 					key  : 'id'

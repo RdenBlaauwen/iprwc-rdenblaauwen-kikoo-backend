@@ -23,17 +23,20 @@ module.exports = {
 				} ,
 				isAdmin: {
 					type        : Sequelize.BOOLEAN ,
-					defaultValue: false
+					defaultValue: false ,
+					field       : 'is_admin'
 				} ,
 				createdAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.fn('NOW')
+					defaultValue: Sequelize.fn('NOW') ,
+					field       : 'created_at'
 				} ,
 				updatedAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.fn('NOW')
+					defaultValue: Sequelize.fn('NOW') ,
+					field       : 'updated_at'
 				}
 			}
 		);

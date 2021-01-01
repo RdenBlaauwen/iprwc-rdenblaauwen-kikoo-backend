@@ -2,7 +2,6 @@
 const{
 	Model
 } = require('sequelize');
-const{v4} = require('uuid');
 
 module.exports = (sequelize , DataTypes) => {
 	class Order extends Model {
@@ -12,8 +11,7 @@ module.exports = (sequelize , DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) {
-			this.belongsTo(models.User);
-			this.hasOne(models.Customer);
+			this.belongsTo(models.Customer);
 			this.belongsToMany(models.Product , {through: models.OrderProduct});
 		}
 	}
@@ -27,8 +25,9 @@ module.exports = (sequelize , DataTypes) => {
 			} ,
 			orderer: {
 				type      : DataTypes.UUID ,
+				field     : 'CustomerId' ,
 				references: {
-					model: 'users' ,
+					model: 'customer' ,
 					key  : 'id'
 				}
 			} ,
@@ -40,12 +39,14 @@ module.exports = (sequelize , DataTypes) => {
 			createdAt: {
 				allowNull   : false ,
 				type        : DataTypes.DATE ,
-				defaultValue: DataTypes.NOW
+				defaultValue: DataTypes.NOW ,
+				field       : 'created_at'
 			} ,
 			updatedAt: {
 				allowNull   : false ,
 				type        : DataTypes.DATE ,
-				defaultValue: DataTypes.NOW // is this even valid in 'updatedAt'? Don't know if postgres even supports this
+				defaultValue: DataTypes.NOW , // is this even valid in 'updatedAt'? Don't know if postgres even supports this
+				field       : 'updated_at'
 			}
 		}
 		, {

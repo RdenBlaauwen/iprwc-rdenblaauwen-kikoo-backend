@@ -28,9 +28,12 @@ module.exports = (sequelize , DataTypes) => {
 				allowNull: false
 			} ,
 			description: DataTypes.TEXT ,
-			imageUri   : DataTypes.TEXT ,
-			stock      : DataTypes.INTEGER ,
-			price      : DataTypes.FLOAT
+			imageUrl   : {
+				type : DataTypes.TEXT ,
+				field: 'image_url'
+			} ,
+			stock: DataTypes.INTEGER ,
+			price: DataTypes.FLOAT
 		} ,
 		{
 			sequelize ,

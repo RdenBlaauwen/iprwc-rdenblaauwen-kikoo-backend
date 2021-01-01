@@ -13,9 +13,15 @@ module.exports = {
 					allowNull : false ,
 					unique    : true
 				} ,
-				firstName: Sequelize.STRING ,
-				lastName : Sequelize.STRING ,
-				email    : {
+				firstName: {
+					type : Sequelize.STRING ,
+					field: 'first_name'
+				} ,
+				lastName: {
+					type : Sequelize.STRING ,
+					field: 'last_name'
+				} ,
+				email: {
 					type     : Sequelize.STRING ,
 					unique   : true ,
 					allowNull: false
@@ -23,7 +29,8 @@ module.exports = {
 				phoneNumber: {
 					type     : Sequelize.STRING ,
 					unique   : true ,
-					allowNull: false
+					allowNull: false ,
+					field    : 'phone_number'
 				} ,
 				country: Sequelize.STRING ,
 				city   : {
@@ -36,14 +43,17 @@ module.exports = {
 				} ,
 				houseNumber: {
 					type     : Sequelize.SMALLINT ,
-					allowNull: false
+					allowNull: false ,
+					field    : 'house_number'
 				} ,
 				postalCode: {
 					type     : Sequelize.STRING ,
-					allowNull: false
+					allowNull: false ,
+					field    : 'postal_code'
 				} ,
 				user: {
 					type      : Sequelize.UUID ,
+					field     : 'UserId' ,
 					references: {
 						model: 'users' ,
 						key  : 'id'
@@ -54,12 +64,14 @@ module.exports = {
 				createdAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.fn('NOW')
+					defaultValue: Sequelize.fn('NOW') ,
+					field       : 'created_at'
 				} ,
 				updatedAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
-					defaultValue: Sequelize.fn('NOW')
+					defaultValue: Sequelize.fn('NOW') ,
+					field       : 'updated_at'
 				}
 			}
 		);

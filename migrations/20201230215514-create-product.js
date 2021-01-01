@@ -20,10 +20,13 @@ module.exports = {
 					allowNull: false
 				} ,
 				description: Sequelize.TEXT ,
-				imageUri   : Sequelize.TEXT ,
-				stock      : Sequelize.INTEGER ,
-				price      : Sequelize.FLOAT ,
-				createdAt  : {
+				imageUrl   : {
+					type : Sequelize.TEXT ,
+					field: 'image_url'
+				} ,
+				stock    : Sequelize.INTEGER ,
+				price    : Sequelize.FLOAT ,
+				createdAt: {
 					allowNull   : false ,
 					type        : Sequelize.DATE ,
 					defaultValue: Sequelize.fn('NOW')
