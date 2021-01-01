@@ -1,9 +1,3 @@
-// const defaultHeaders = [
-// 	{name: 'Access-Control-Allow-Origin' , value: '*'} ,
-//     {name: 'Access-Control-Allow-Headers' , value: 'DELETE, GET, OPTIONS PATCH, POST, PUT'},
-//     {name}
-// ]
-// ;
 const defaultHeaders = {
 	'Access-Control-Allow-Headers': 'Content-Type, Authorization' ,
 	'Access-Control-Allow-Methods': 'DELETE, GET, OPTIONS PATCH, POST, PUT' ,
