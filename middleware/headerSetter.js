@@ -1,7 +1,7 @@
 const defaultHeaders = {
 	'Access-Control-Allow-Headers': 'Content-Type, Authorization' ,
 	'Access-Control-Allow-Methods': 'DELETE, GET, OPTIONS PATCH, POST, PUT' ,
-	'Access-Control-Allow-Origins': '*' ,
+	'Access-Control-Allow-Origin' : '*' ,
 };
 
 module.exports = function(headers) {
