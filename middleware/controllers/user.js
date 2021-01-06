@@ -14,11 +14,9 @@ exports.post = (req , res) => {
 		})
 		.then( (result) => {
 			//TODO: remove password from result b4 returning
-			console.log('POST user: SUCCESS' , result);
 			res.status(200).json(result);
 		})
 		.catch( (err) => {
-			console.log('POST user: ERROR' , err);
 			res.status(500).json(err);
 		});
 };
