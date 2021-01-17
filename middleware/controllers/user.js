@@ -3,6 +3,16 @@ const bcrypt = require('bcryptjs');
 const db = require('../../models/index');
 const User = db.User;
 
+const read = function(id = null){
+	if(id){
+		return User.findByPk(id);
+	}
+
+	return User.findAll();
+};
+
+exports.read = read;
+
 
 exports.post = (req , res) => {
 	const userData = req.body;
