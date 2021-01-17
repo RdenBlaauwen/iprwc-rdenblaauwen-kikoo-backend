@@ -31,12 +31,19 @@ app.use('/api/user' , userRoutes);
 app.use('/api/product' , productRoutes);
 
 
-app.use( (error , req , res) => {
-	console.log(error);
-	const status = error.statusCode || 500;
-	const message = error.message;
-	const data = error.data;
-	res.status(status).json({message: message , data});
+app.use( (err , req , res , next) => {
+	console.log(err);
+	if(res.headersSent){
+		return next(err);
+	}
+	
+	const status = err.statusCode || 500;
+	res.status(status).json(
+		{
+			message: err.message , 
+			data   : err.data
+		}
+	);
 });
 
 app.listen(8080);

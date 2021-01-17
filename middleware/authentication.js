@@ -67,8 +67,7 @@ module.exports.determine = (req , res , next) => {
 
 	if(!header){
 		res.locals.requestor.role = roles.GUEST;
-		next();
-		return;
+		return next();
 	}
 
 	const token = header.split(' ')[1];
@@ -95,6 +94,6 @@ module.exports.determine = (req , res , next) => {
 		})
 		.catch( (err) => {
 			err.statusCode = 500;
-			throw err;
+			next(err);
 		});
 };
