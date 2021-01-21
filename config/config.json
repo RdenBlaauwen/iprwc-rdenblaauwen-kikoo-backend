@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "gazely_server",
-    "password": "gazely-server",
-    "database": "Gazely-dev-1",
+    "username": "iprwc_rdenblaauwen_kikoo_dev",
+    "password": "iprwc_rdenblaauwen_kikoo_dev",
+    "database": "iprwc_rdenblaauwen_kikoo_dev",
     "host": "127.0.0.1",
     "dialect": "postgresql"
   },
