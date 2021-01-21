@@ -11,9 +11,9 @@ module.exports = (sequelize , DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) {
-			this.belongsTo(models.Customer);
+			this.belongsTo(models.Customer , {foreignKey: 'orderer'});
 			this.belongsToMany(models.Product , {
-				through: models.OrderProduct.tableName , foreignKey: 'OrderId' , otherKey: 'ProductId'
+				through: models.OrderProduct , foreignKey: 'order' , otherKey: 'product'
 			});
 		}
 	}
@@ -27,7 +27,7 @@ module.exports = (sequelize , DataTypes) => {
 			} ,
 			orderer: {
 				type      : DataTypes.UUID ,
-				field     : 'CustomerId' ,
+				// field     : 'CustomerId' ,
 				references: {
 					model: 'customer' ,
 					key  : 'id'

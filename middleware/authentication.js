@@ -22,7 +22,7 @@ module.exports.login = (req , res , next) => {
 		.then( (user) => {
 			if(!user){
 				// res.status(401).json({message: 'User with this email doesn\'t exist'});
-				const error = new Error('User with this email doesn\'t exist');
+				const error = new Error('User with this email doesn\'t exist'); //TODO: try to replace this with next(error) or smth
 				error.statusCode = 401;
 				throw error;
 			}
@@ -88,8 +88,12 @@ module.exports.determine = (req , res , next) => {
 
 	userController.read(decodedToken.userId)
 		.then( (user) => {
-			res.locals.requestor.user = user;
-			res.locals.requestor.role = user.isAdmin ? roles.ADMIN : roles.USER;
+			if(user){
+				res.locals.requestor.user = user;
+				res.locals.requestor.role = user.isAdmin ? roles.ADMIN : roles.USER;
+			} else{
+				throw Error(`Token belongs to nonexistant User. id: ${decodedToken.userId}`);
+			}
 			next();
 		})
 		.catch( (err) => {

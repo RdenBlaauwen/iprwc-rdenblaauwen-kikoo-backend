@@ -12,7 +12,7 @@ module.exports = (sequelize , DataTypes) => {
      */
 		static associate(models) {
 			this.belongsTo(models.User);
-			this.hasMany(models.Order);
+			this.hasMany(models.Order , {foreignKey: 'orderer'});
 		}
 	}
 	Customer.init({

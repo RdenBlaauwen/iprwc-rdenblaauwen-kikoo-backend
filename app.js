@@ -6,6 +6,7 @@ const cors = require('cors');
 const{determine} = require('./middleware/authentication');
 const productRoutes = require('./routes/product');
 const userRoutes = require('./routes/users');
+const orderRoutes = require('./routes/order');
 
 // bcrypt.hash('janjansen',12).then(hash=>{
 //     bcrypt.compare()
@@ -23,12 +24,13 @@ app.use(bodyParser.json() );
 app.use(determine);
 
 app.use( (req , res , next) => {
-	console.log('requestor: ' , res.locals.requestor);
+	console.log('requestor: ' , res.locals.requestor.role);
 	next();
 });
 
 app.use('/api/user' , userRoutes);
 app.use('/api/product' , productRoutes);
+app.use('/api/order' , orderRoutes);
 
 
 app.use( (err , req , res , next) => {

@@ -33,8 +33,14 @@ module.exports = (sequelize , DataTypes) => {
 			field       : 'is_admin'
 		} ,
 		customer: {
-			type : DataTypes.UUID ,
-			field: 'CustomerId'
+			type      : DataTypes.UUID ,
+			field     : 'CustomerId' ,
+			references: {
+				model: 'customer' ,
+				key  : 'id'
+			} ,
+			onUpdate: 'CASCADE' ,
+			onDelete: 'SET NULL'
 		} ,
 		createdAt: {
 			allowNull: false ,
