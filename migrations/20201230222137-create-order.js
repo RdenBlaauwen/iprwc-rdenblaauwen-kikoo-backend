@@ -16,6 +16,7 @@ module.exports = {
 				} ,
 				orderer: {
 					type      : Sequelize.UUID ,
+					field     : 'orderer' ,
 					references: {
 						model: 'customer' ,
 						key  : 'id'

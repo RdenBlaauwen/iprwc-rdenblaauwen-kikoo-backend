@@ -1,7 +1,7 @@
 'use strict';
 
 const tableName = 'users';
-const customerColumnName = 'CustomerId';
+const customerColumnName = 'customer';
 
 module.exports = {
 	up: async(queryInterface , Sequelize) => {
@@ -13,6 +13,7 @@ module.exports = {
 				unique    : true ,
 				onUpdate  : 'CASCADE' ,
 				onDelete  : 'SET NULL' ,
+				field     : customerColumnName ,
 				references: {
 					model: 'customer' ,
 					key  : 'id'

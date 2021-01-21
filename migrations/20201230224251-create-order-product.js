@@ -11,6 +11,7 @@ module.exports = {
 					type      : Sequelize.UUID ,
 					allowNull : false ,
 					primaryKey: true ,
+					field     : 'order' ,
 					references: {
 						model: 'order' ,
 						key  : 'id'
@@ -20,6 +21,7 @@ module.exports = {
 					type      : Sequelize.UUID ,
 					allowNull : false ,
 					primaryKey: true ,
+					field     : 'product' ,
 					references: {
 						model: 'product' ,
 						key  : 'id'
@@ -28,7 +30,7 @@ module.exports = {
 				amount: {
 					type        : Sequelize.INTEGER ,
 					allowNull   : false ,
-					defaultValue: 0 // TODO: correct this to 1 in a later migration or smth
+					defaultValue: 1
 				}
 			}
 		);

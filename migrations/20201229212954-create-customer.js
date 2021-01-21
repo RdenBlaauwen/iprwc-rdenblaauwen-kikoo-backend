@@ -28,7 +28,6 @@ module.exports = {
 				} ,
 				phoneNumber: {
 					type     : Sequelize.STRING ,
-					unique   : true ,
 					allowNull: false ,
 					field    : 'phone_number'
 				} ,
@@ -53,7 +52,8 @@ module.exports = {
 				} ,
 				user: {
 					type      : Sequelize.UUID ,
-					field     : 'UserId' ,
+					field     : 'user' ,
+					unique    : true ,
 					references: {
 						model: 'users' ,
 						key  : 'id'

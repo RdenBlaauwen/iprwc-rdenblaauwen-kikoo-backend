@@ -27,7 +27,7 @@ module.exports = (sequelize , DataTypes) => {
 			} ,
 			orderer: {
 				type      : DataTypes.UUID ,
-				// field     : 'CustomerId' ,
+				field     : 'orderer' ,
 				references: {
 					model: 'customer' ,
 					key  : 'id'
