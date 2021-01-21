@@ -62,7 +62,7 @@ module.exports = (sequelize , DataTypes) => {
 			allowNull: false ,
 			field    : 'postal_code'
 		} ,
-		userId: {
+		UserId: {
 			type      : DataTypes.UUID ,
 			field     : 'UserId' ,
 			unique    : true ,

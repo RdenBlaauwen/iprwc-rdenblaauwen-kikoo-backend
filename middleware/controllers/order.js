@@ -33,7 +33,7 @@ exports.post = async(req , res , next) => {
 		customer.country = customerData.country;
 		customer.city = customerData.city;
 		customer.street = customerData.street;
-		customer.houseNumer = customerData.houseNumer;
+		customer.houseNumber = customerData.houseNumber;
 		customer.postalCode = customerData.postalCode;
         
 		customer = await customer.save().catch( (err) => {
@@ -77,17 +77,17 @@ exports.post = async(req , res , next) => {
 					return orderProduct.product.id === product.id;
 				});
 				product.OrderProduct = {amount: orderProduct.amount};
-				console.log('amount: ' , product.OrderProduct);
+
 				return product;
 			});
-            
+			console.log('productsWithOrderProduct: ' , productsWithOrderProduct);
 			return newOrder.addProducts(productsWithOrderProduct , 
 				{
 					through: OrderProduct
 				});
 		})
 		.then( () => {
-			return Order.findByPk(newOrder.id , {include: [Product] });
+			return Order.findByPk(newOrder.id , {include: [Product , Customer] });
 		})
 		.then( (orderWithProducts) => {
 			console.log(orderWithProducts);

@@ -17,7 +17,7 @@ module.exports = (sequelize , DataTypes) => {
 	}
 	OrderProduct.init(
 		{
-			orderId: {
+			OrderId: {
 				type      : DataTypes.UUID ,
 				allowNull : false ,
 				primaryKey: true ,
@@ -27,7 +27,7 @@ module.exports = (sequelize , DataTypes) => {
 					key  : 'id'
 				}
 			} ,
-			productId: {
+			ProductId: {
 				type      : DataTypes.UUID ,
 				allowNull : false ,
 				primaryKey: true ,
