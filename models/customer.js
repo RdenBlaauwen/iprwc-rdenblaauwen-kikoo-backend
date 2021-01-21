@@ -40,7 +40,6 @@ module.exports = (sequelize , DataTypes) => {
 		} ,
 		phoneNumber: {
 			type     : DataTypes.STRING ,
-			unique   : true ,
 			allowNull: false ,
 			field    : 'phone_number'
 		} ,
@@ -66,6 +65,7 @@ module.exports = (sequelize , DataTypes) => {
 		user: {
 			type      : DataTypes.UUID ,
 			field     : 'UserId' ,
+			unique    : true ,
 			references: {
 				model: 'users' ,
 				key  : 'id'
