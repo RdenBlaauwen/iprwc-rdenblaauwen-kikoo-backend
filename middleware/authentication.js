@@ -31,12 +31,9 @@ module.exports.login = (req , res , next) => {
 		})
 		.then( (isSame) => {
 			if(!isSame){
-				// res.status(401).json({message: 'Wrong password!'});
-				// console.log(userData.password);
-
 				const error = Error('Wrong password!');
 				error.statusCode = 401;
-				throw error;
+				next(error);
 			}
 			const token = jwt.sign(
 				{
@@ -52,11 +49,6 @@ module.exports.login = (req , res , next) => {
 			});
 		})
 		.catch( (err) => {
-			// console.log(err);
-			// res.status(500).json(err);
-			if(!err.statusCode) {
-				err.statusCode = 500;
-			}
 			next(err);
 		});
 };

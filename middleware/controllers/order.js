@@ -24,7 +24,6 @@ exports.post = async(req , res , next) => {
 			next(err);
 		});
 		res.locals.requestor.user = user;
-		console.log('User.setCustomer: ' , user);
 	}
 	if(customer){
 		customer.firstName = customerData.firstName;
@@ -39,19 +38,16 @@ exports.post = async(req , res , next) => {
 		customer = await customer.save().catch( (err) => {
 			next(err);
 		});
-		console.log('Customer.save: ' , customer);
 	} else{
 		customerData.id = v4();
 		if(user){
 			customer = await user.createCustomer(customerData).catch( (err) => {
 				next(err);
 			});
-			console.log('User.createCustomer: ' , customer);
 		} else{
 			customer = await Customer.create(customerData).catch( (err) => {
 				next(err);
 			});
-			console.log('Customer.create: ' , customer);
 		}
 	}
 	
@@ -59,7 +55,6 @@ exports.post = async(req , res , next) => {
 	let newOrder;
 	await customer.createOrder(orderData)
 		.then( (order) => {
-			console.log('Customer.createOrder: ' , order);
 			newOrder = order;
 			return newOrder.setCustomer(customer);
 		})
@@ -67,7 +62,6 @@ exports.post = async(req , res , next) => {
 			const ids = orderProducts.map( (orderProduct) => {
 				return orderProduct.product.id;
 			});
-			// console.log('id data:' , orderProducts , ids);
             
 			return Product.findAll({where: {id: ids} });
 		})
@@ -80,7 +74,6 @@ exports.post = async(req , res , next) => {
 
 				return product;
 			});
-			console.log('productsWithOrderProduct: ' , productsWithOrderProduct);
 			return newOrder.addProducts(productsWithOrderProduct , 
 				{
 					through: OrderProduct
@@ -90,11 +83,9 @@ exports.post = async(req , res , next) => {
 			return Order.findByPk(newOrder.id , {include: [Product , Customer] });
 		})
 		.then( (orderWithProducts) => {
-			console.log(orderWithProducts);
 			res.status(200).json(orderWithProducts);
 		})
 		.catch( (err) => {
-			console.log('orderData went wrong...');
 			next(err);
 		});
 	//TODO: fix errors not being catched withing catch blocks.
