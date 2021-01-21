@@ -14,6 +14,7 @@ module.exports = {
 						id      : v4() ,
 						password: hash ,
 						username: 'ShopKeeper' ,
+						email   : 'shopkeeper@development.kikoo.nl' ,
 						isAdmin : true
 					}
 				);
