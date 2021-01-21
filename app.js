@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const{determine} = require('./middleware/authentication');
 const productRoutes = require('./routes/product');
-const userRoutes = require('./routes/users');
+const userRoutes = require('./routes/user');
 const orderRoutes = require('./routes/order');
 
 // bcrypt.hash('janjansen',12).then(hash=>{

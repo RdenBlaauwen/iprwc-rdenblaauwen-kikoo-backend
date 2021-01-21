@@ -12,7 +12,7 @@ module.exports = (sequelize , DataTypes) => {
      */
 		static associate(models) {
 			this.belongsTo(models.User);
-			this.hasMany(models.Order , {foreignKey: 'orderer'});
+			this.hasMany(models.Order , {foreignKey: 'CustomerId'});
 		}
 	}
 	Customer.init({
@@ -62,12 +62,12 @@ module.exports = (sequelize , DataTypes) => {
 			allowNull: false ,
 			field    : 'postal_code'
 		} ,
-		user: {
+		userId: {
 			type      : DataTypes.UUID ,
-			field     : 'user' ,
+			field     : 'UserId' ,
 			unique    : true ,
 			references: {
-				model: 'users' ,
+				model: 'user' ,
 				key  : 'id'
 			} ,
 			onUpdate: 'CASCADE' ,

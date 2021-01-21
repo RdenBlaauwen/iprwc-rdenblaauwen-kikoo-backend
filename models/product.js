@@ -12,7 +12,7 @@ module.exports = (sequelize , DataTypes) => {
 	 */
 		static associate(models) {
 			this.belongsToMany(models.Order , {
-				through: models.OrderProduct , foreignKey: 'product' , otherKey: 'order'
+				through: models.OrderProduct , foreignKey: 'ProductId' , otherKey: 'OrderId'
 			});
 		}
 	}
@@ -34,8 +34,18 @@ module.exports = (sequelize , DataTypes) => {
 				type : DataTypes.TEXT ,
 				field: 'image_url'
 			} ,
-			stock: DataTypes.INTEGER ,
-			price: DataTypes.FLOAT
+			stock    : DataTypes.INTEGER ,
+			price    : DataTypes.FLOAT ,
+			createdAt: {
+				allowNull: false ,
+				type     : DataTypes.DATE ,
+				field    : 'created_at' 
+			} ,
+			updatedAt: {
+				allowNull: false ,
+				type     : DataTypes.DATE ,
+				field    : 'updated_at' 
+			}
 		} ,
 		{
 			sequelize ,

@@ -1,6 +1,6 @@
 'use strict';
 
-const tableName = 'users';
+const tableName = 'user';
 
 module.exports = {
 	up: async(queryInterface , Sequelize) => {

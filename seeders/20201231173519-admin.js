@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const{User} = require('../models/index');
 const{v4} = require('uuid');
 
-const tableName = 'users';
+const tableName = 'user';
 const password = 'admin-test';
 module.exports = {
 	up: async() => {

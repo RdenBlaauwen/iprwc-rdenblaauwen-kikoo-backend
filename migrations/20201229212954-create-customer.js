@@ -50,12 +50,12 @@ module.exports = {
 					allowNull: false ,
 					field    : 'postal_code'
 				} ,
-				user: {
+				userId: {
 					type      : Sequelize.UUID ,
-					field     : 'user' ,
+					field     : 'UserId' ,
 					unique    : true ,
 					references: {
-						model: 'users' ,
+						model: 'user' ,
 						key  : 'id'
 					} ,
 					onUpdate: 'CASCADE' ,

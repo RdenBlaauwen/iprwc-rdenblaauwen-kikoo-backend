@@ -14,9 +14,9 @@ module.exports = {
 					allowNull   : false ,
 					unique      : true
 				} ,
-				orderer: {
+				orderId: {
 					type      : Sequelize.UUID ,
-					field     : 'orderer' ,
+					field     : 'CustomerId' ,
 					references: {
 						model: 'customer' ,
 						key  : 'id'

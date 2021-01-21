@@ -1,33 +1,21 @@
 const{v4} = require('uuid');
 const db = require('../../models/index');
-const order = require('../../models/order');
 const Order = db.Order;
 const Customer = db.Customer;
 const Product = db.Product;
 const OrderProduct = db.OrderProduct;
 const customerController = require('./customer');
 
-// const read = function(id = null){
-// 	if(id){
-// 		return User.findByPk(id);
-// 	}
-
-// 	return User.findAll();
-// };
-// 
-// exports.read = read;
-
-
 exports.post = async(req , res , next) => {
 	const orderData = req.body;
-	const ordererData = orderData.orderer;
-	delete orderData.orderer;
+	const customerData = orderData.customer;
+	delete orderData.customer;
 	const orderProducts = orderData.orderProducts;
 	// delete orderData.orderProducts;
 	orderData.id = v4();
     
 	let user = res.locals.requestor.user;
-	let customer = await customerController.findByEmail(ordererData.email).catch( (err) => { 
+	let customer = await customerController.findByEmail(customerData.email).catch( (err) => { 
 		next(err); 
 	});
 	//TODO: refactor this horror code
@@ -39,28 +27,28 @@ exports.post = async(req , res , next) => {
 		console.log('User.setCustomer: ' , user);
 	}
 	if(customer){
-		customer.firstName = ordererData.firstName;
-		customer.lastName = ordererData.lastName;
-		customer.phoneNumber = ordererData.phoneNumber;
-		customer.country = ordererData.country;
-		customer.city = ordererData.city;
-		customer.street = ordererData.street;
-		customer.houseNumer = ordererData.houseNumer;
-		customer.postalCode = ordererData.postalCode;
+		customer.firstName = customerData.firstName;
+		customer.lastName = customerData.lastName;
+		customer.phoneNumber = customerData.phoneNumber;
+		customer.country = customerData.country;
+		customer.city = customerData.city;
+		customer.street = customerData.street;
+		customer.houseNumer = customerData.houseNumer;
+		customer.postalCode = customerData.postalCode;
         
 		customer = await customer.save().catch( (err) => {
 			next(err);
 		});
 		console.log('Customer.save: ' , customer);
 	} else{
-		ordererData.id = v4();
+		customerData.id = v4();
 		if(user){
-			customer = await user.createCustomer(ordererData).catch( (err) => {
+			customer = await user.createCustomer(customerData).catch( (err) => {
 				next(err);
 			});
 			console.log('User.createCustomer: ' , customer);
 		} else{
-			customer = await Customer.create(ordererData).catch( (err) => {
+			customer = await Customer.create(customerData).catch( (err) => {
 				next(err);
 			});
 			console.log('Customer.create: ' , customer);

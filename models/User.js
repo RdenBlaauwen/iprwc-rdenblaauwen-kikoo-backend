@@ -32,10 +32,11 @@ module.exports = (sequelize , DataTypes) => {
 			defaultValue: false ,
 			field       : 'is_admin'
 		} ,
-		customer: {
-			type      : DataTypes.UUID ,
-			field     : 'customer' ,
-			references: {
+		customerId: {
+			type        : DataTypes.UUID ,
+			field       : 'CustomerId' ,
+			defaultValue: null ,
+			references  : {
 				model: 'customer' ,
 				key  : 'id'
 			} ,
@@ -55,7 +56,7 @@ module.exports = (sequelize , DataTypes) => {
 	} , {
 		sequelize ,
 		modelName: 'User' ,
-		tableName: 'users'
+		tableName: 'user'
 	});
 	return User;
 };
