@@ -1,3 +1,6 @@
+const https = require('https');
+// const http = require('http');
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -39,4 +42,10 @@ app.use( (err , req , res , next) => {
 	);
 });
 
-app.listen(8080);
+const options = {
+	key : fs.readFileSync('config/certificate/priykey1.pem') ,
+	cert: fs.readFileSync('config/certificate/fullchain1.pem') // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
+};
+// app.listen(8080);
+https.createServer(options , app).listen(8080);
+// http.createServer(app).listen(8080);
