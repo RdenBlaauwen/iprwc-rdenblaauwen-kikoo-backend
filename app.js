@@ -1,18 +1,19 @@
-const https = require('https');
-// const http = require('http');
-const fs = require('fs');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const bodyParser = require('body-parser') , 
+	cors = require('cors') , 
+	express = require('express') ,
+	fs = require('fs') , 
+	helmet = require('helmet') ,
+	https = require('https');
 
-const{determine} = require('./middleware/authentication');
-const productRoutes = require('./routes/product');
-const userRoutes = require('./routes/user');
-const orderRoutes = require('./routes/order');
+const{determine} = require('./middleware/authentication') , 
+	orderRoutes = require('./routes/order') , 
+	productRoutes = require('./routes/product') , 
+	userRoutes = require('./routes/user');
 
 const app = express();
 
 app.use(cors() );
+app.use(helmet() );
 app.use(bodyParser.json() );
 
 app.use(determine);
@@ -43,9 +44,9 @@ app.use( (err , req , res , next) => {
 });
 
 const options = {
-	key : fs.readFileSync('config/certificate/priykey1.pem') ,
-	cert: fs.readFileSync('config/certificate/fullchain1.pem') // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
+	key    : fs.readFileSync('config/certificate/production/privkey1.pem') ,
+	cert   : fs.readFileSync('config/certificate/production/fullchain1.pem') , // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
+	dhparam: fs.readFileSync('config/certificate/production/dh-strong.pem')
 };
-// app.listen(8080);
+
 https.createServer(options , app).listen(8080);
-// http.createServer(app).listen(8080);
