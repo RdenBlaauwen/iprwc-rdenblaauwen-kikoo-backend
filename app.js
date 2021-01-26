@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const bodyParser = require('body-parser') , 
 	cors = require('cors') , 
 	express = require('express') ,
@@ -44,9 +46,9 @@ app.use( (err , req , res , next) => {
 });
 
 const options = {
-	key    : fs.readFileSync('config/certificate/production/privkey1.pem') ,
-	cert   : fs.readFileSync('config/certificate/production/fullchain1.pem') , // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
-	dhparam: fs.readFileSync('config/certificate/production/dh-strong.pem')
+	key    : fs.readFileSync(process.env.TLS_PRIVATE_KEY) ,
+	cert   : fs.readFileSync(process.env.TLS_FULLCHAIN) , // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
+	dhparam: fs.readFileSync(process.env.TLS_DH_PARAM)
 };
 
-https.createServer(options , app).listen(8080);
+https.createServer(options , app).listen(process.env.PORT , process.env.HOST);

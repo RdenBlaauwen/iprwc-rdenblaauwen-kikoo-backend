@@ -1,20 +1,20 @@
 'use strict';
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const{User} = require('../models/index');
 const{v4} = require('uuid');
 
 const tableName = 'user';
-const password = 'admin-test';
 module.exports = {
 	up: async() => {
-		return bcrypt.hash(password , 12)
+		return bcrypt.hash(process.env.MOD_PASSWORD , process.env.AUTH_SALT)
 			.then( (hash) => {
 				const admin = User.build(
 					{
 						id      : v4() ,
 						password: hash ,
-						username: 'ShopKeeper' ,
-						email   : 'shopkeeper@development.kikoo.nl' ,
+						username: process.env.MOD_NAME ,
+						email   : process.env.MOD_EMAIL ,
 						isAdmin : true
 					}
 				);

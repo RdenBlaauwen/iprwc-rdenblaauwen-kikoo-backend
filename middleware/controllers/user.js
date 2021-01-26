@@ -1,3 +1,4 @@
+require('dotenv').config();
 const{v4} = require('uuid');
 const bcrypt = require('bcryptjs');
 const db = require('../../models/index');
@@ -17,7 +18,7 @@ exports.read = read;
 exports.post = (req , res) => {
 	const userData = req.body;
 	userData.id = v4();
-	bcrypt.hash(userData.password , 12)
+	bcrypt.hash(userData.password , process.env.AUTH_SALT)//TODO: check if retrieving salt works properly
 		.then( (hashedPw) => {
 			userData.password = hashedPw;
 			return User.create(userData);
