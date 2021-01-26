@@ -1,4 +1,4 @@
-require('dotenv').config();
+const config = require('../config/config.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -38,7 +38,7 @@ module.exports.login = (req , res , next) => {
 				{
 					userId: _user.id
 				} ,
-				process.env.AUTH_SECRET ,
+				config.auth.SECRET ,
 				{expiresIn: '3h'}
 			);
             
@@ -65,7 +65,7 @@ module.exports.determine = (req , res , next) => {
 	let decodedToken;
 
 	try{
-		decodedToken = jwt.verify(token , process.env.AUTH_SECRET);
+		decodedToken = jwt.verify(token , config.auth.SECRET);
 	} catch(err) {
 		if(err){
 			if(err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError'){

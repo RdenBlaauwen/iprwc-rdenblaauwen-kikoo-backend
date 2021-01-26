@@ -1,24 +1,25 @@
-require('dotenv').config();
-const{v4} = require('uuid');
-const bcrypt = require('bcryptjs');
-const db = require('../../models/index');
-const User = db.User;
+const config = require('../../config/config.js');
 
+const bcrypt = require('bcryptjs') ,
+	db = require('../../models/index') ,
+	{v4} = require('uuid');
+
+const User = db.User;
+	
 const read = function(id = null){
 	if(id){
 		return User.findByPk(id);
 	}
-
+		
 	return User.findAll();
 };
-
+	
 exports.read = read;
 
-
-exports.post = (req , res) => {
+exports.post = (req , res , next) => {
 	const userData = req.body;
 	userData.id = v4();
-	bcrypt.hash(userData.password , process.env.AUTH_SALT)//TODO: check if retrieving salt works properly
+	bcrypt.hash(userData.password , config.auth.SALT)//TODO: check if retrieving salt works properly
 		.then( (hashedPw) => {
 			userData.password = hashedPw;
 			return User.create(userData);
@@ -28,6 +29,6 @@ exports.post = (req , res) => {
 			res.status(200).json(result);
 		})
 		.catch( (err) => {
-			res.status(500).json(err);
+			next(err);
 		});
 };

@@ -1,5 +1,6 @@
 'use strict';
-require('dotenv').config();
+const config = require('../config/config.js');
+
 const bcrypt = require('bcryptjs');
 const{User} = require('../models/index');
 const{v4} = require('uuid');
@@ -7,14 +8,14 @@ const{v4} = require('uuid');
 const tableName = 'user';
 module.exports = {
 	up: async() => {
-		return bcrypt.hash(process.env.MOD_PASSWORD , process.env.AUTH_SALT)
+		return bcrypt.hash(config.mod.PASSWORD , config.auth.SALT)
 			.then( (hash) => {
 				const admin = User.build(
 					{
 						id      : v4() ,
 						password: hash ,
-						username: process.env.MOD_NAME ,
-						email   : process.env.MOD_EMAIL ,
+						username: config.mod.NAME ,
+						email   : config.mod.EMAIL ,
 						isAdmin : true
 					}
 				);

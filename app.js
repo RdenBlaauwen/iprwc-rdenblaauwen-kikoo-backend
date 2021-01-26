@@ -1,4 +1,4 @@
-require('dotenv').config();
+const config = require('./config/config.js');
 
 const bodyParser = require('body-parser') , 
 	cors = require('cors') , 
@@ -46,9 +46,9 @@ app.use( (err , req , res , next) => {
 });
 
 const options = {
-	key    : fs.readFileSync(process.env.TLS_PRIVATE_KEY) ,
-	cert   : fs.readFileSync(process.env.TLS_FULLCHAIN) , // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
-	dhparam: fs.readFileSync(process.env.TLS_DH_PARAM)
+	key    : fs.readFileSync(config.tls.PRIVATE_KEY) ,
+	cert   : fs.readFileSync(config.tls.FULLCHAIN) , // mogelijk moet ik de andere chain hebben. Lees je in/kijk vids
+	dhparam: fs.readFileSync(config.tls.DH_PARAM)
 };
 
-https.createServer(options , app).listen(process.env.PORT , process.env.HOST);
+https.createServer(options , app).listen(config.server.PORT , config.server.HOST);
