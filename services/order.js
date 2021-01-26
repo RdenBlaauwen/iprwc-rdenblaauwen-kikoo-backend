@@ -1,10 +1,10 @@
 const{v4} = require('uuid');
-const db = require('../../models/index');
+const db = require('../models/index');
 const Order = db.Order;
 const Customer = db.Customer;
 const Product = db.Product;
 const OrderProduct = db.OrderProduct;
-const customerController = require('./customer');
+const customerService = require('./customer');
 
 exports.post = async(req , res , next) => {
 	const orderData = req.body;
@@ -15,7 +15,7 @@ exports.post = async(req , res , next) => {
 	orderData.id = v4();
     
 	let user = res.locals.requestor.user;
-	let customer = await customerController.findByEmail(customerData.email).catch( (err) => { 
+	let customer = await customerService.findByEmail(customerData.email).catch( (err) => { 
 		next(err); 
 	});
 	//TODO: refactor this horror code
@@ -26,6 +26,7 @@ exports.post = async(req , res , next) => {
 		res.locals.requestor.user = user;
 	}
 	if(customer){
+		//TODO: find a way to use destructuring, without overwriting things like the id
 		customer.firstName = customerData.firstName;
 		customer.lastName = customerData.lastName;
 		customer.phoneNumber = customerData.phoneNumber;

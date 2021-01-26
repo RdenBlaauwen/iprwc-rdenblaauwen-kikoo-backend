@@ -1,7 +1,7 @@
-const config = require('../../config/config.js');
+const config = require('../config/config.js');
 
 const bcrypt = require('bcryptjs') ,
-	db = require('../../models/index') ,
+	db = require('../models/index') ,
 	{v4} = require('uuid');
 
 const User = db.User;

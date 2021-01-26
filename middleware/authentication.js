@@ -6,7 +6,7 @@ const roles = require('../config/roles');
 const db = require('../models/index');
 const User = db.User;
 
-const userController = require('./controllers/user');
+const userService = require('../services/user');
 
 module.exports.login = (req , res , next) => {
 	const userData = req.body;
@@ -77,7 +77,7 @@ module.exports.determine = (req , res , next) => {
 		}
 	}
 
-	userController.read(decodedToken.userId)
+	userService.read(decodedToken.userId)
 		.then( (user) => {
 			if(user){
 				res.locals.requestor.user = user;

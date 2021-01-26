@@ -1,8 +1,8 @@
 const express = require('express');
-const orderController = require('../middleware/controllers/order');
+const orderService = require('../services/order');
 
 const router = express.Router();
 
-router.post('/' , orderController.post);
+router.post('/' , orderService.post);
 
 module.exports = router;

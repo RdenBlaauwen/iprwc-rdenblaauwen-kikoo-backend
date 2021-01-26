@@ -1,4 +1,4 @@
-const db = require('../../models/index');
+const db = require('../models/index');
 const Customer = db.Customer;
 
 exports.findByEmail = async(email) => {
@@ -8,7 +8,7 @@ exports.findByEmail = async(email) => {
 		});
 
 	if(customer.length > 1){
-		throw new Error(`CustomerController: Customer.email table may not be unique. Expected 1 customer with email "${email}", found ${customer.length} instead.`);
+		throw new Error(`CustomerService: Customer.email table may not be unique. Expected 1 customer with email "${email}", found ${customer.length} instead.`);
 	}
 	
 	return customer.length === 1 ? customer[0] : null; 
