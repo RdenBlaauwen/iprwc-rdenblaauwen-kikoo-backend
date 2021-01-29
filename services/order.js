@@ -4,7 +4,7 @@ const Order = db.Order;
 const Customer = db.Customer;
 const Product = db.Product;
 const OrderProduct = db.OrderProduct;
-const customerService = require('./customer');
+const customerDao = require('../daos/customer');
 
 exports.post = async(req , res , next) => {
 	const orderData = req.body;
@@ -15,7 +15,7 @@ exports.post = async(req , res , next) => {
 	orderData.id = v4();
     
 	let user = res.locals.requestor.user;
-	let customer = await customerService.findByEmail(customerData.email).catch( (err) => { 
+	let customer = await customerDao.findByEmail(customerData.email).catch( (err) => { 
 		next(err); 
 	});
 	//TODO: refactor this horror code

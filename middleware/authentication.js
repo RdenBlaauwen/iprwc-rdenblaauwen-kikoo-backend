@@ -6,7 +6,7 @@ const roles = require('../config/roles');
 const db = require('../models/index');
 const User = db.User;
 
-const userService = require('../services/user');
+const userDao = require('../daos/user');
 
 module.exports.login = (req , res , next) => {
 	const userData = req.body;
@@ -20,8 +20,7 @@ module.exports.login = (req , res , next) => {
 	})
 		.then( (user) => {
 			if(!user){
-				// res.status(401).json({message: 'User with this email doesn\'t exist'});
-				const error = new Error('User with this email doesn\'t exist'); //TODO: try to replace this with next(error) or smth
+				const error = new Error('User with this username doesn\'t exist'); //TODO: try to replace this with next(error) or smth
 				error.statusCode = 401;
 				throw error;
 			}
@@ -66,29 +65,28 @@ module.exports.determine = (req , res , next) => {
 
 	try{
 		decodedToken = jwt.verify(token , config.auth.SECRET);
-	} catch(err) {
-		if(err){
-			if(err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError'){
-				err.statusCode = 401;
-			} else{
+		
+		userDao.read(decodedToken.userId)
+			.then( (user) => {
+				if(user){
+					res.locals.requestor.user = user;
+					res.locals.requestor.role = user.isAdmin ? roles.ADMIN : roles.USER;
+				} else{
+					next(new Error(`Token belongs to nonexistant User. id: ${decodedToken.userId}`) );
+				}
+				next();
+			})
+			.catch( (err) => {
 				err.statusCode = 500;
-			}
-			throw err;
-		}
-	}
-
-	userService.read(decodedToken.userId)
-		.then( (user) => {
-			if(user){
-				res.locals.requestor.user = user;
-				res.locals.requestor.role = user.isAdmin ? roles.ADMIN : roles.USER;
-			} else{
-				throw Error(`Token belongs to nonexistant User. id: ${decodedToken.userId}`);
-			}
-			next();
-		})
-		.catch( (err) => {
+				next(err);
+			});
+	} catch(err) {
+		res.locals.requestor.role = roles.GUEST;
+		if(err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError'){
+			err.statusCode = 401;
+		} else{
 			err.statusCode = 500;
-			next(err);
-		});
+		}
+		next(err);
+	}
 };

@@ -5,16 +5,6 @@ const bcrypt = require('bcryptjs') ,
 	{v4} = require('uuid');
 
 const User = db.User;
-	
-const read = function(id = null){
-	if(id){
-		return User.findByPk(id);
-	}
-		
-	return User.findAll();
-};
-	
-exports.read = read;
 
 exports.post = (req , res , next) => {
 	const userData = req.body;
