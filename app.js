@@ -8,6 +8,7 @@ const bodyParser = require('body-parser') ,
 	https = require('https');
 
 const{determine} = require('./middleware/authentication') , 
+	customerRoutes = require('./routes/customer') ,
 	orderRoutes = require('./routes/order') , 
 	productRoutes = require('./routes/product') , 
 	userRoutes = require('./routes/user');
@@ -25,9 +26,10 @@ app.use( (req , res , next) => {
 	next();
 });
 
-app.use('/api/user' , userRoutes);
-app.use('/api/product' , productRoutes);
+app.use('/api/customer' , customerRoutes);
 app.use('/api/order' , orderRoutes);
+app.use('/api/product' , productRoutes);
+app.use('/api/user' , userRoutes);
 
 
 app.use( (err , req , res , next) => {
