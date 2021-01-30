@@ -1,3 +1,5 @@
+const{v4} = require('uuid');
+
 const Util = require('../util/helpers');
 
 const db = require('../models/index');
@@ -9,6 +11,11 @@ exports.read = (id = null) => {
 	}
 		
 	return Product.findAll();
+};
+
+exports.create = (data) => {
+	data.id = v4();
+	return Product.create(data);
 };
 
 exports.update = (data) => {

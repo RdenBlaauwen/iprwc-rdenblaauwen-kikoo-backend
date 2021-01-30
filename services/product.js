@@ -10,6 +10,16 @@ exports.get = (req , res , next) => {
 		});
 };
 
+exports.post = (req , res , next) => {
+	productDao.create(req.body)
+		.then( (product) => {
+			res.status(200).json(product);
+		})
+		.catch( (err) => {
+			next(err);
+		});
+};
+
 exports.patch = (req , res , next) => {
 	productDao.update(req.body)
 		.then( (product) => {
