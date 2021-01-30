@@ -1,4 +1,3 @@
-const{Op} = require('sequelize');
 const db = require('../models/index');
 const Order = db.Order;
 const OrderProduct = db.OrderProduct;
@@ -23,14 +22,9 @@ exports.delete = (id) => {
 	return this.read(id)
 		.then( (order) => {
 			orderToDelete = order;
-			// const orderProducts = order.Products.map( (product) => {
-			// 	return product.OrderProduct;
-			// });
-			// console.log('orderProducts: ' , orderProducts);
 			return OrderProduct.destroy({where: {OrderId: order.id} });
 		})
-		.then(async(result) => {
-			console.log('res orderProducts: ' , result);
+		.then(async() => {
 			await Order.destroy({where: {id: orderToDelete.id} });
 			return orderToDelete;
 		});
