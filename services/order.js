@@ -5,6 +5,18 @@ const Customer = db.Customer;
 const Product = db.Product;
 const OrderProduct = db.OrderProduct;
 const customerDao = require('../daos/customer');
+const orderDao = require('../daos/order');
+
+exports.get = (req , res , next) => {
+	orderDao.read(req.body.id)
+		.then( (orders) => {
+			console.log(orders);
+			res.status(200).json(orders);
+		})
+		.catch( (err) => {
+			next(err);
+		});
+};
 
 exports.post = async(req , res , next) => {
 	const orderData = req.body;
@@ -91,3 +103,5 @@ exports.post = async(req , res , next) => {
 		});
 	//TODO: fix errors not being catched withing catch blocks.
 };
+
+
