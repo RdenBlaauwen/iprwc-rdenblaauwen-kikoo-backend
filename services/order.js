@@ -7,10 +7,25 @@ const OrderProduct = db.OrderProduct;
 const customerDao = require('../daos/customer');
 const orderDao = require('../daos/order');
 
+const fixOrder = (order) => {
+	const newOrder = {orderProducts: [] };
+	newOrder.id = order.id;
+	newOrder.customer = order.CustomerId;
+	newOrder.status = order.status;
+	newOrder.createdAt = order.createdAt;
+	newOrder.updatedAt = order.updatedAt;
+    
+	newOrder.orderProducts = order.Products.map( (product) => {
+		return{product: product.id , amount: product.OrderProduct.amount};
+	});
+    
+	return newOrder;
+};
+
 exports.get = (req , res , next) => {
-	orderDao.read(req.body.id)
+	orderDao.read()
 		.then( (orders) => {
-			console.log(orders);
+			orders = orders.map(fixOrder);
 			res.status(200).json(orders);
 		})
 		.catch( (err) => {
@@ -104,4 +119,23 @@ exports.post = async(req , res , next) => {
 	//TODO: fix errors not being catched withing catch blocks.
 };
 
+exports.patch = (req , res , next) => {
+	orderDao.update(req.body)
+		.then( (order) => {
+			order = fixOrder(order);
+			res.status(200).json(order);
+		})
+		.catch( (err) => {
+			next(err);
+		});
+};
 
+exports.delete = (req , res , next) => {
+	orderDao.delete(req.params.id)
+		.then( (deletedOrder) => {
+			res.status(200).json(fixOrder(deletedOrder) );
+		})
+		.catch( (err) => {
+			next(err);
+		});
+};
