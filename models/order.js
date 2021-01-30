@@ -31,7 +31,9 @@ module.exports = (sequelize , DataTypes) => {
 				references: {
 					model: 'customer' ,
 					key  : 'id'
-				}
+				} ,
+				onUpdate: 'CASCADE' ,
+				onDelete: 'SET NULL'
 			} ,
 			status: {
 				type        : DataTypes.STRING ,

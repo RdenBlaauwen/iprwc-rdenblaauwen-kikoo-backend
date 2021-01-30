@@ -14,13 +14,15 @@ module.exports = {
 					allowNull   : false ,
 					unique      : true
 				} ,
-				OrderId: {
+				CustomerId: {
 					type      : Sequelize.UUID ,
 					field     : 'CustomerId' ,
 					references: {
 						model: 'customer' ,
 						key  : 'id'
-					}
+					} ,
+					onUpdate: 'CASCADE' ,
+					onDelete: 'SET NULL' ,
 				} ,
 				status: {
 					type        : Sequelize.STRING ,

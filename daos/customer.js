@@ -33,3 +33,15 @@ exports.update = (data) => {
 		return customer.save();
 	});
 };
+
+exports.delete = (id) => {
+	let customerToDelete;
+	return this.read(id)
+		.then( (customer) => {
+			customerToDelete = customer;
+			return customer.destroy();
+		})
+		.then( () => {
+			return customerToDelete;
+		});
+};
