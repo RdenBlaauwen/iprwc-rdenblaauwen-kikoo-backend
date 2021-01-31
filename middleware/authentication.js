@@ -2,7 +2,7 @@ const config = require('../config/config.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const roles = require('../config/roles');
+const roles = require('./roles');
 const db = require('../models/index');
 const User = db.User;
 
