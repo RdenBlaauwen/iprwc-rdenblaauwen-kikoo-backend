@@ -12,7 +12,7 @@ module.exports = (sequelize , DataTypes) => {
      */
 		static associate(models) {
 			this.belongsTo(models.User);
-			this.hasMany(models.Order);
+			this.hasMany(models.Order , {foreignKey: 'CustomerId'});
 		}
 	}
 	Customer.init({
@@ -40,7 +40,6 @@ module.exports = (sequelize , DataTypes) => {
 		} ,
 		phoneNumber: {
 			type     : DataTypes.STRING ,
-			unique   : true ,
 			allowNull: false ,
 			field    : 'phone_number'
 		} ,
@@ -63,11 +62,12 @@ module.exports = (sequelize , DataTypes) => {
 			allowNull: false ,
 			field    : 'postal_code'
 		} ,
-		user: {
+		UserId: {
 			type      : DataTypes.UUID ,
 			field     : 'UserId' ,
+			unique    : true ,
 			references: {
-				model: 'users' ,
+				model: 'user' ,
 				key  : 'id'
 			} ,
 			onUpdate: 'CASCADE' ,

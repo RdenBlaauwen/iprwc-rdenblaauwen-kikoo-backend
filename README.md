@@ -1,8 +1,7 @@
-
-# Database config
-- set "Default `uuid_generate_v4()`" manually in postgres PK UUID fields whenever a new table is created.
-  - Consider automating this later on. It's kinda ugly.
+# TODO
+- [Enable https](https://www.sitepoint.com/how-to-use-ssltls-with-node-js/)
 # To consider
+- code a function in the models to automatically generate an id.
 ## Code
 - figure a way to set `process.env` to configure devmode, production, etc
 - Add automatic validations by, for example, setting `Model.attributes.column.validate` objects in object definitions.

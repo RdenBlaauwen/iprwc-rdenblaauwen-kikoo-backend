@@ -11,8 +11,10 @@ module.exports = (sequelize , DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) {
-			this.belongsTo(models.Customer);
-			this.belongsToMany(models.Product , {through: models.OrderProduct});
+			this.belongsTo(models.Customer , {foreignKey: 'CustomerId'});
+			this.belongsToMany(models.Product , {
+				through: models.OrderProduct , foreignKey: 'OrderId' , otherKey: 'ProductId'
+			});
 		}
 	}
 	Order.init(
@@ -23,13 +25,15 @@ module.exports = (sequelize , DataTypes) => {
 				primaryKey: true ,
 				unique    : true ,
 			} ,
-			orderer: {
+			CustomerId: {
 				type      : DataTypes.UUID ,
 				field     : 'CustomerId' ,
 				references: {
 					model: 'customer' ,
 					key  : 'id'
-				}
+				} ,
+				onUpdate: 'CASCADE' ,
+				onDelete: 'SET NULL'
 			} ,
 			status: {
 				type        : DataTypes.STRING ,

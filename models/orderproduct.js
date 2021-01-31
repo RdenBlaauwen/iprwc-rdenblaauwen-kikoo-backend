@@ -11,13 +11,13 @@ module.exports = (sequelize , DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) {
-			this.belongsTo(models.Order);
-			this.belongsTo(models.Product);
+			this.belongsTo(models.Order , {foreignKey: 'OrderId'});
+			this.belongsTo(models.Product , {foreignKey: 'ProductId'});
 		}
 	}
 	OrderProduct.init(
 		{
-			order: {
+			OrderId: {
 				type      : DataTypes.UUID ,
 				allowNull : false ,
 				primaryKey: true ,
@@ -27,7 +27,7 @@ module.exports = (sequelize , DataTypes) => {
 					key  : 'id'
 				}
 			} ,
-			product: {
+			ProductId: {
 				type      : DataTypes.UUID ,
 				allowNull : false ,
 				primaryKey: true ,
@@ -40,13 +40,14 @@ module.exports = (sequelize , DataTypes) => {
 			amount: {
 				type        : DataTypes.INTEGER ,
 				allowNull   : false ,
-				defaultValue: 0
+				defaultValue: 1
 			} 
 		} ,
 		{
 			sequelize ,
-			modelName: 'OrderProduct' ,
-			tableName: 'order_product' ,
+			modelName : 'OrderProduct' ,
+			tableName : 'order_product' ,
+			timestamps: false
 		}
 	);
 	return OrderProduct;

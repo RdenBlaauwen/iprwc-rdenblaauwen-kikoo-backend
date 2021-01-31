@@ -28,7 +28,6 @@ module.exports = {
 				} ,
 				phoneNumber: {
 					type     : Sequelize.STRING ,
-					unique   : true ,
 					allowNull: false ,
 					field    : 'phone_number'
 				} ,
@@ -51,11 +50,12 @@ module.exports = {
 					allowNull: false ,
 					field    : 'postal_code'
 				} ,
-				user: {
+				userId: {
 					type      : Sequelize.UUID ,
 					field     : 'UserId' ,
+					unique    : true ,
 					references: {
-						model: 'users' ,
+						model: 'user' ,
 						key  : 'id'
 					} ,
 					onUpdate: 'CASCADE' ,

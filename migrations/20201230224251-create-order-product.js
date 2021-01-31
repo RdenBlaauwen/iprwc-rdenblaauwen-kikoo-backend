@@ -7,19 +7,21 @@ module.exports = {
 		await queryInterface.createTable(
 			tableName , 
 			{
-				order: {
+				OrderId: {
 					type      : Sequelize.UUID ,
 					allowNull : false ,
 					primaryKey: true ,
+					field     : 'OrderId' ,
 					references: {
 						model: 'order' ,
 						key  : 'id'
 					}
 				} ,
-				product: {
+				ProductId: {
 					type      : Sequelize.UUID ,
 					allowNull : false ,
 					primaryKey: true ,
+					field     : 'ProductId' ,
 					references: {
 						model: 'product' ,
 						key  : 'id'
@@ -28,7 +30,7 @@ module.exports = {
 				amount: {
 					type        : Sequelize.INTEGER ,
 					allowNull   : false ,
-					defaultValue: 0 // TODO: correct this to 1 in a later migration or smth
+					defaultValue: 1
 				}
 			}
 		);

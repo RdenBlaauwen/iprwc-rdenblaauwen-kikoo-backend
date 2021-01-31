@@ -11,7 +11,9 @@ module.exports = (sequelize , DataTypes) => {
 	 * The `models/index` file will call this method automatically.
 	 */
 		static associate(models) {
-			this.hasMany(models.Order);
+			this.belongsToMany(models.Order , {
+				through: models.OrderProduct , foreignKey: 'ProductId' , otherKey: 'OrderId'
+			});
 		}
 	}
 	Product.init(
@@ -32,8 +34,18 @@ module.exports = (sequelize , DataTypes) => {
 				type : DataTypes.TEXT ,
 				field: 'image_url'
 			} ,
-			stock: DataTypes.INTEGER ,
-			price: DataTypes.FLOAT
+			stock    : DataTypes.INTEGER ,
+			price    : DataTypes.FLOAT ,
+			createdAt: {
+				allowNull: false ,
+				type     : DataTypes.DATE ,
+				field    : 'created_at' 
+			} ,
+			updatedAt: {
+				allowNull: false ,
+				type     : DataTypes.DATE ,
+				field    : 'updated_at' 
+			}
 		} ,
 		{
 			sequelize ,

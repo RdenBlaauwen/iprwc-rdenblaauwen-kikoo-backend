@@ -1,6 +1,6 @@
 'use strict';
 
-const tableName = 'users';
+const tableName = 'user';
 
 module.exports = {
 	up: async(queryInterface , Sequelize) => {
@@ -20,6 +20,11 @@ module.exports = {
 				} ,
 				password: {
 					type: Sequelize.STRING
+				} ,
+				email: {
+					type     : Sequelize.STRING ,
+					unique   : true ,
+					allowNull: false
 				} ,
 				isAdmin: {
 					type        : Sequelize.BOOLEAN ,

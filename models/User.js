@@ -22,14 +22,26 @@ module.exports = (sequelize , DataTypes) => {
 		} ,
 		password: DataTypes.STRING ,
 		username: DataTypes.STRING ,
-		isAdmin : {
+		email   : {
+			type     : DataTypes.STRING ,
+			unique   : true ,
+			allowNull: false
+		} ,
+		isAdmin: {
 			type        : DataTypes.BOOLEAN ,
 			defaultValue: false ,
 			field       : 'is_admin'
 		} ,
-		customer: {
-			type : DataTypes.UUID ,
-			field: 'CustomerId'
+		customerId: {
+			type        : DataTypes.UUID ,
+			field       : 'CustomerId' ,
+			defaultValue: null ,
+			references  : {
+				model: 'customer' ,
+				key  : 'id'
+			} ,
+			onUpdate: 'CASCADE' ,
+			onDelete: 'SET NULL'
 		} ,
 		createdAt: {
 			allowNull: false ,
@@ -44,7 +56,7 @@ module.exports = (sequelize , DataTypes) => {
 	} , {
 		sequelize ,
 		modelName: 'User' ,
-		tableName: 'users'
+		tableName: 'user'
 	});
 	return User;
 };
